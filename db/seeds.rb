@@ -12,15 +12,22 @@ url = 'http://tmdb.lewagon.com/movie/top_rated'
 html_content = URI.open(url).read
 movies = JSON.parse(html_content)
 
-puts "creating fake movie..."
-movies['results'].each do |movie|
-  Movie.create(title: movie["title"], overview: movie["overview"], poster_url: "https://images.unsplash.com/photo-1624313603844-dda78ecf39b8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=901&q=80.png", rating: movie["vote_average"])
-end
-puts "finish"
-
+puts "creating fake everthing..."
+Bookmark.destroy_all
+Movie.destroy_all
 List.destroy_all
+
+
+movies['results'].each do |movie|
+  Movie.create(title: movie["title"], overview: movie["overview"], poster_url: "https://image.tmdb.org/t/p/w500/#{movie['poster_path']}", rating: movie["vote_average"])
+end
+
+
+
 List.create(name: "Classic")
 List.create(name: "Superhero")
 
+
 Bookmark.create(comment: "I like this movie love love!", movie: Movie.first, list: List.first)
 Bookmark.create(comment: "I m not interested in it!", movie: Movie.last, list: List.last)
+puts "finish"

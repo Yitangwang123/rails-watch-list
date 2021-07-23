@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <a class="navbar-brand" href="#">
-    <i class="fas fa-video"></i>
-</a>
+<%= link_to root_path, class: "navbar-brand" do %>
+  <i class="fas fa-video"></i>
+<% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -37,8 +37,7 @@
   <h2>My Lists</h2>
   <div class="cards m-4">
   <% @lists.each do |list| %>
-  <div class="card-category" >
-    <%= cl_image_tag list.photo.key, height: 300, width: 400, crop: :fill %>
+    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.photo.attached? ? cl_image_path(list.photo.key, height: 300, crop: :fill) : 'https://images.unsplash.com/photo-1568876694728-451bbf694b83?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80.png' %>)">
     <%= link_to "#{list.name}", list_path(list) %>
   </div>
   <% end %>

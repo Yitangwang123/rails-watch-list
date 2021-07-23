@@ -37,7 +37,8 @@
   <h2>My Lists</h2>
   <div class="cards m-4">
   <% @lists.each do |list| %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(http://loremflickr.com/300/300/<%= list.name %>)">
+  <div class="card-category" >
+    <%= cl_image_tag list.photo.key, height: 300, width: 400, crop: :fill %>
     <%= link_to "#{list.name}", list_path(list) %>
   </div>
   <% end %>

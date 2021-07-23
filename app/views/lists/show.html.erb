@@ -1,0 +1,53 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <a class="navbar-brand" href="#">
+    <i class="fas fa-video"></i>
+</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "New list", new_list_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item dropdown">
+        <img class="avatar dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/ssaunier" />
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(http://loremflickr.com/300/300/<%= @list.name %>);">
+  <div class="container">
+    <h1><%= @list.name %></h1>
+    <p><%= @list.movies.count.to_i %> movies in your list</p>
+  </div>
+</div>
+
+
+
+<div class="container my-5">
+  <div class="card" style="width: 18rem;">
+    <% @list.movies.each do |movie| %>
+    <img src="http://loremflickr.com/300/300/<%= movie.title %>" class="card-img-top" alt="Post">
+    <div class="card-body">
+      <p><%= movie.title %>-<%= movie.rating %></p>
+      <p class="card-text"><%= movie.overview %></p>
+      <%= link_to "Delete",
+            # find the @bookmark
+            bookmark_path(Bookmark.find_by(movie: movie, list: @list)),
+            method: :delete,
+            data: { confirm: "Are you sure?" } %>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= link_to "Add movie", new_list_bookmark_path(@list), class: "btn btn-warning" %>

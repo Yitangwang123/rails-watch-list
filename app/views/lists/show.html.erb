@@ -30,17 +30,31 @@
   </div>
 </div>
 
+<div class=" container d-flex justify-content-center my-5">
+  <div class="form border p-4">
+    <div>
+      <h1>Add bookmark</h1>
+
+      <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment %>
+      <%= f.association :movie %>
+      <%= f.submit "Create",  class: "btn btn-primary rounded-pill" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="d-flex my-5 pr-5">
 <div class="container my-5">
   <div class="row">
   <% @list.movies.each do |movie| %>
-  <div class="col-md-6">
+  <div class="col-md-4 py-5">
   <div class="card movie-card">
     <%= image_tag movie.poster_url, class: 'card-img-top' %>
     <div class="card-body">
       <p><%= movie.title %>-<%= movie.rating %>⭐</p>
       <p class="card-text"><%= movie.overview %></p>
-      <p>❤️  <%= Bookmark.find_by(movie: movie, list: @list).comment %></p>
+      <p><%= Bookmark.find_by(movie: movie, list: @list).comment %></p>
       <%= link_to "Delete",
             # find the @bookmark
             bookmark_path(Bookmark.find_by(movie: movie, list: @list)), class: 'btn btn-warning',
@@ -53,7 +67,87 @@
   </div>
 </div>
 
-<div>
-  <%= link_to "Add movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
 </div>
+
+
+
+
+<div class=" container d-flex justify-content-around my-5 border-top py-4">
+  <div class="review mx-5">
+    <h1>Reviews for list</h1>
+    <div>
+    <% @list.reviews.each do |review| %>
+    <div>
+      <% case review.rating %>
+      <% when 1.0 %>
+        <span class="fa fa-star checked"></span>
+      <% when 2.0 %>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+      <% when 3.0 %>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+      <% when 4.0 %>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+      <% when 5.0 %>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+      <% end %>
+    </div>
+    <div class="border-bottom pb-3">
+      <div class="container d-flex justify-content-between">
+        <div>
+        <%= review.comment %>
+        </div>
+        <div>
+          <%= link_to "Delete",
+              # find the @bookmark
+              review_path(Review.find_by(list: @list)), class: 'btn btn-sm btn-warning',
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
+        </div>
+      </div>
+
+    </div>
+    <% end %>
+    </div>
+  </div>
+  <div class="form border p-4">
+    <div>
+      <h1>Add your review</h1>
+
+      <%= simple_form_for [@list, @review] do |f| %>
+        <%= f.input :comment, placeholder: 'Add your review here' %>
+        <%= f.input :rating, collection: 1..5%>
+        <%= f.submit "Create Review", class: "btn btn-primary rounded-pill" %>
+      <% end %>
+    </div>
+  </div>
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

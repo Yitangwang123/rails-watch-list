@@ -1,9 +1,21 @@
-<h1>New list</h1>
 
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :photo, as: :file %>
-  <%= f.submit "save", class: "btn btn-primary" %>
-<% end %>
+
+<div class=" container d-flex justify-content-center my-5">
+  <div class="form border p-4">
+    <div>
+      <h1>Add a new list</h1>
+
+      <%= simple_form_for(@list) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :photo, as: :file %>
+        <%= f.submit "save", class: "btn btn-primary rounded-pill" %>
+        <%= link_to 'Back', root_path, class: "btn btn-info rounded-pill"%>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+
 
 

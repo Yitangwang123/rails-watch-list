@@ -13,11 +13,12 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 .movie-card {
-  height: 500px;
-  width: 450px;
-  font-size: 14px;
+  height: 680px;
+  width: 300px;
+  font-size: 10px;
   .card-img-top {
-    height: 50%;
+    height: 60%;
+    object-fit: cover;
   }
   .btn-warning {
     position: absolute;
@@ -26,6 +27,9 @@
   }
 }
 
+.text {
+  color: white;
+}
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
